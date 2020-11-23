@@ -50,7 +50,9 @@ def rna_main(main_rec,path_to_rna_db):
         db = open(f'dbr/{f}')
         to_allignm = [db_rec for db_rec in SeqIO.parse(db,'fasta')]
         to_allignm.append(main_rec)
-        muscle_cline = MuscleCommandline()
+        gapopen = -400.0
+        muscle_cline = MuscleCommandline(gapopen=gapopen,
+                                         cluster1='upgma',cluster2='upgma')
         handle = StringIO()
         SeqIO.write(to_allignm, handle, "fasta")
         data = handle.getvalue()
